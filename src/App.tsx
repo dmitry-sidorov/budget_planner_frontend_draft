@@ -270,7 +270,7 @@ function App() {
           </CardContent>
           <CardFooter className="flex-col gap-2">
             <Button type="submit" className="w-full">
-              Создать
+              Сохранить
             </Button>
             <Button variant="secondary" className="w-full">
               Закрыть
