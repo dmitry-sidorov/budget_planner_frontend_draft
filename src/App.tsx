@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
-import { IconPlus } from '@tabler/icons-react';
+import { IconPlus, IconArrowBigUpFilled, IconArrowBigDownFilled } from '@tabler/icons-react';
 
 import {
   Accordion,
@@ -181,8 +181,13 @@ function App() {
       return (
         <AccordionItem value={`item-${i + 1}`}>
           <AccordionTrigger>
-            <span className='text-lime-500'>
-              {`${category} (-${total} ${currency})`}
+            <span className='flex'>
+              <span className='font-light min-w-80'>{category}</span>
+              <span className='flex text-red-600'>
+                {'('}
+                <IconArrowBigDownFilled  size={15}/>
+                {`${total} ${currency})`}
+              </span>
             </span>
           </AccordionTrigger>
           <AccordionContent>
@@ -228,8 +233,13 @@ function App() {
               <Accordion type="single" collapsible>
                 <AccordionItem value='item-0'>
                   <AccordionTrigger>
-                    <span className='text-green-600'>
-                      {`Поступление (+${calculatePaymentsTotal(plannedIncomesFixture)} BYN)`}
+                    <span className='flex'>
+                      <span className='font-light min-w-80'>Поступление</span>
+                      <span className='flex text-green-600'>
+                        {'('}
+                        <IconArrowBigUpFilled  size={15}/>
+                        {`${calculatePaymentsTotal(plannedIncomesFixture)} BYN)`}
+                      </span>
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
@@ -240,8 +250,12 @@ function App() {
                 {renderAccordionContent(categoryPlannedPaymentsFixture)}
               </Accordion>
             </div>
+            <hr />
+            <div className='flex w-full font-semibold text-sm mt-4'>
+              <span className='text-left min-w-80'>Сумма</span>
+              <span>{`(${getTotal()} BYN)`}</span>
+            </div>
           </CardContent>
-          <span className='font-semibold text-sm self-start ml-6'>{`Сумма (${getTotal()} BYN)`}</span>
           <CardFooter className="flex-col gap-2">
             <Button type="submit" className="w-full">
               Сохранить
