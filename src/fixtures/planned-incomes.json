@@ -1,0 +1,12 @@
+[
+  {
+    "amount": 4000,
+    "currency": "BYN",
+    "name": "Аванс"
+  },
+  {
+    "amount": 1000,
+    "currency": "BYN",
+    "name": "Аванс 2"
+  }
+]

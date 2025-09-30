@@ -45,5 +45,84 @@
         "name": "Топливо"
       }
     ]
+  },
+  {
+    "id": 3,
+    "category": "Платежи",
+    "payments": [
+      {
+        "amount": 99,
+        "currency": "BYN",
+        "name": "ЖКУ"
+      },
+      {
+        "amount": 38,
+        "currency": "BYN",
+        "name": "Электроэнергия"
+      },
+      {
+        "amount": 17,
+        "currency": "BYN",
+        "name": "Взнос ЖСПК"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "category": "Спорт",
+    "payments": [
+      {
+        "amount": 110,
+        "currency": "BYN",
+        "name": "Ролики взрослые"
+      },
+      {
+        "amount": 135,
+        "currency": "BYN",
+        "name": "Крав мага"
+      },
+      {
+        "amount": 80,
+        "currency": "BYN",
+        "name": "Ролики детские"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "category": "Здоровья",
+    "payments": [
+      {
+        "amount": 50,
+        "currency": "BYN",
+        "name": "Терапевт"
+      },
+      {
+        "amount": 78,
+        "currency": "BYN",
+        "name": "УЗИ"
+      },
+      {
+        "amount": 145,
+        "currency": "BYN",
+        "name": "Лекарства на месяц"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "category": "Кредиты",
+    "payments": [
+      {
+        "amount": 1250,
+        "currency": "BYN",
+        "name": "Лизинг авто"
+      },
+      {
+        "amount": 150,
+        "currency": "BYN",
+        "name": "Кредит"
+      }
+    ]
   }
 ]
