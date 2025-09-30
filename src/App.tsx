@@ -127,8 +127,11 @@ interface PlannedCategory {
   payments: PlannedPayment[];
 }
 
-const calculateSum = (payments: PlannedPayment[]) => payments.reduce((acc, { amount }) => acc + amount, 0);
+const calculateSum = (items: number[]) => items.reduce((sum, item) => sum + item, 0);
 
+const mapPaymentAmount = ({ amount }: PlannedPayment) => amount;
+
+const calculatePaymentsTotal = (payments: PlannedPayment[]) => calculateSum(payments.map(mapPaymentAmount))
 
 function App() {
   const [startDate, setStartDate] = useState();
@@ -163,15 +166,22 @@ function App() {
     </Table>
   );
 
+  const getTotal = () => {
+    const totalIncome = calculatePaymentsTotal(plannedIncomesFixture);
+    const totalPayment = calculateSum(categoryPlannedPaymentsFixture.map(({ payments }) => calculatePaymentsTotal(payments)));
+
+    return totalIncome - totalPayment;
+  };
+
   const renderAccordionContent = (plannedCategories: PlannedCategory[]) =>
     plannedCategories.map(({ category, payments }, i) => {
-      const total = calculateSum(payments);
+      const total = calculatePaymentsTotal(payments);
       const currency = 'BYN'; // hardcoded
 
       return (
         <AccordionItem value={`item-${i + 1}`}>
           <AccordionTrigger>
-            <span className='text-red-600'>
+            <span className='text-lime-500'>
               {`${category} (-${total} ${currency})`}
             </span>
           </AccordionTrigger>
@@ -214,25 +224,16 @@ function App() {
                   }
                 />
               </div>
-              {/* <Accordion type="single" collapsible>
-                <AccordionItem value='item-0'>
-                  <AccordionTrigger>{`Поступление (${calculateSum(plannedIncomesFixture)} BYN)`}</AccordionTrigger>
-                  <AccordionContent>
-                    {renderCategoryTable(plannedIncomesFixture, calculateSum(plannedIncomesFixture))}
-                    <DialogDemo />
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion> */}
               <Label>Категории</Label>
               <Accordion type="single" collapsible>
                 <AccordionItem value='item-0'>
                   <AccordionTrigger>
                     <span className='text-green-600'>
-                      {`Поступление (+${calculateSum(plannedIncomesFixture)} BYN)`}
+                      {`Поступление (+${calculatePaymentsTotal(plannedIncomesFixture)} BYN)`}
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
-                    {renderCategoryTable(plannedIncomesFixture, calculateSum(plannedIncomesFixture))}
+                    {renderCategoryTable(plannedIncomesFixture, calculatePaymentsTotal(plannedIncomesFixture))}
                     <DialogDemo />
                   </AccordionContent>
                 </AccordionItem>
@@ -240,7 +241,7 @@ function App() {
               </Accordion>
             </div>
           </CardContent>
-          <span className='text-sm self-start ml-6'>{`Сумма (${2003} BYN)`}</span>
+          <span className='font-semibold text-sm self-start ml-6'>{`Сумма (${getTotal()} BYN)`}</span>
           <CardFooter className="flex-col gap-2">
             <Button type="submit" className="w-full">
               Сохранить
