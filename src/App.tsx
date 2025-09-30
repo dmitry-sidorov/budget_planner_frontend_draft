@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { IconPlus } from '@tabler/icons-react';
 
@@ -7,8 +7,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
+} from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -17,8 +17,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { DatePicker } from "@/components/ui/datepicker"
+} from '@/components/ui/card';
+import { DatePicker } from '@/components/ui/datepicker';
 import {
   Dialog,
   DialogClose,
@@ -28,9 +28,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -39,7 +39,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -49,10 +49,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from '@/components/ui/table';
 import categoryPlannedPaymentsFixture from '@/fixtures/category-planned-payments.json';
 
-const currencies = ["BYN", "USD"];
+const currencies = ['BYN', 'USD'];
 
 export function CurrencySelector() {
   return (
@@ -68,10 +68,10 @@ export function CurrencySelector() {
         </SelectGroup>
       </SelectContent>
     </Select>
-  )
+  );
 }
 
-import './App.css'
+import './App.css';
 
 const onSubmit = (data) => console.log('onSubmit: ', data);
 
@@ -111,7 +111,7 @@ export function DialogDemo() {
         </DialogContent>
       </form>
     </Dialog>
-  )
+  );
 }
 
 interface PlannedPayment {
@@ -158,7 +158,7 @@ function App() {
         </TableRow>
       </TableFooter>
     </Table>
-  )
+  );
 
   const renderAccordionContent = (plannedCategories: PlannedCategory[]) =>
     plannedCategories.map(({ category, payments }, i) => {
@@ -174,7 +174,7 @@ function App() {
           </AccordionContent>
         </AccordionItem>
       );
-  });
+    });
 
   return (
     <form>
@@ -191,20 +191,22 @@ function App() {
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-6">
-              <Controller
-                control={control}
-                name='startDate'
-                render={({ field: { onChange, value } }) =>
-                  <DatePicker label='Начальная дата' {...{ onChange, value }} />
-                }
-              />
-              <Controller
-                control={control}
-                name='endDate'
-                render={({ field: { onChange, value } }) =>
-                  <DatePicker label='Конечная дата' {...{ onChange, value }} />
-                }
-              />
+              <div className="flex flex-row gap-6">
+                <Controller
+                  control={control}
+                  name='startDate'
+                  render={({ field: { onChange, value } }) =>
+                    <DatePicker label='Начальная дата' {...{ onChange, value }} />
+                  }
+                />
+                <Controller
+                  control={control}
+                  name='endDate'
+                  render={({ field: { onChange, value } }) =>
+                    <DatePicker label='Конечная дата' {...{ onChange, value }} />
+                  }
+                />
+              </div>
               <Label>Категории</Label>
               <Accordion type="single" collapsible>
                 {renderAccordionContent(categoryPlannedPaymentsFixture)}
@@ -222,7 +224,7 @@ function App() {
         </Card>
       </FormProvider>
     </form>
-  )
+  );
 }
 
-export default App
+export default App;

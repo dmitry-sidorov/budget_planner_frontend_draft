@@ -19,5 +19,17 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      // 'quotes': [2, "single", { "avoidEscape": true }],
+      'object-curly-spacing': ['error', 'always'],
+      // 'semi': ['error', 'always'],
+      'indent' : ['error', 2, { SwitchCase: 1 }],
+      'no-trailing-spaces': 'error',
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
   },
 ])
