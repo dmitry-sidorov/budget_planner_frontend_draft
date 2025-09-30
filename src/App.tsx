@@ -50,6 +50,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import categoryPlannedPaymentsFixture from '@/fixtures/category-planned-payments.json';
 
 const currencies = ["BYN", "USD"];
 
@@ -113,52 +114,67 @@ export function DialogDemo() {
   )
 }
 
+interface PlannedPayment {
+  amount: number;
+  currency: string;
+  name: string;
+}
+
+interface PlannedCategory {
+  id: number;
+  category: string;
+  payments: PlannedPayment[];
+}
+
 
 function App() {
   const [startDate, setStartDate] = useState();
   const formMethods = useForm();
   const { control } = formMethods;
 
-  const mockGroceries = [
-    {
-      amount: 100.0,
-      currency: 'BYN',
-      name: 'Грин',
-    },
-    {
-      amount: 180,
-      currency: 'BYN',
-      name: 'Евроопт',
-    },
-    {
-      amount: 210,
-      currency: 'BYN',
-      name: 'Е-доставка',
-    },
-    {
-      amount: 38,
-      currency: 'BYN',
-      name: 'Алми или другой какой-нибудь магазин',
-    },
-  ];
+  const renderCategoryTable = (payments: PlannedPayment[], total: number) => (
+    <Table className='mb-4'>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="text-left w-full">Имя</TableHead>
+          <TableHead className="text-center w-150">Сумма</TableHead>
+          <TableHead className="text-right w-150">Валюта</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {payments.map(({ amount, currency, name }) => (
+          <TableRow key={`${name} - ${amount}`}>
+            <TableCell className="text-left font-light">{name}</TableCell>
+            <TableCell className="font-light w-150">{amount}</TableCell>
+            <TableCell className="font-light text-right w-150">{currency}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell className="text-left">Сумма</TableCell>
+          <TableCell>{total}</TableCell>
+          <TableCell className="text-right">{'BYN'}</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  )
 
-  const mockAutoPayments = [
-    {
-      amount: 75,
-      currency: 'BYN',
-      name: 'Топливо',
-    },
-    {
-      amount: 14,
-      currency: 'BYN',
-      name: 'Мойка',
-    },
-    {
-      amount: 120,
-      currency: 'BYN',
-      name: 'Топливо А-100',
-    },
-  ];
+  const renderAccordionContent = (plannedCategories: PlannedCategory[]) =>
+    plannedCategories.map(({ category, payments }, i) => {
+      const total = payments.reduce((acc, { amount }) => acc + amount, 0);
+      const currency = 'BYN'; // hardcoded
+
+      return (
+        <AccordionItem value={`item-${i + 1}`}>
+          <AccordionTrigger>{`${category} (${total} ${currency})`}</AccordionTrigger>
+          <AccordionContent>
+            {renderCategoryTable(payments, total)}
+            <DialogDemo />
+          </AccordionContent>
+        </AccordionItem>
+      );
+  });
 
   return (
     <form>
@@ -174,99 +190,26 @@ function App() {
             </CardAction> */}
           </CardHeader>
           <CardContent>
-              <div className="flex flex-col gap-6">
-                <Controller
-                  control={control}
-                  name='startDate'
-                  render={({ field: { onChange, value } }) =>
-                    <DatePicker label='Начальная дата' {...{ onChange, value }} />
-                  }
-                />
-                <Controller
-                  control={control}
-                  name='endDate'
-                  render={({ field: { onChange, value } }) =>
-                    <DatePicker label='Конечная дата' {...{ onChange, value }} />
-                  }
-                />
-                <Label>Категории</Label>
-                <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>Продукты</AccordionTrigger>
-                    <AccordionContent>
-                      <Table className='mb-4'>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="text-left w-full">Имя</TableHead>
-                            <TableHead className="text-center w-150">Сумма</TableHead>
-                            <TableHead className="text-right w-150">Валюта</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {mockGroceries.map(({ amount, currency, name }) => (
-                            <TableRow key={`${name} - ${amount}`}>
-                              <TableCell className="text-left font-light">{name}</TableCell>
-                              <TableCell className="font-light w-150">{amount}</TableCell>
-                              <TableCell className="font-light text-right w-150">{currency}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                        <TableFooter>
-                          <TableRow>
-                            <TableCell className="text-left">Сумма</TableCell>
-                            <TableCell>{mockGroceries.reduce((acc, { amount }) => acc + amount, 0)}</TableCell>
-                            <TableCell className="text-right">{'BYN'}</TableCell>
-                          </TableRow>
-                        </TableFooter>
-                      </Table>
-                      <Controller
-                        control={control}
-                        name='payment1'
-                        render={({ field: { onChange, value } }) =>
-                          <div className="grid w-full max-w-sm items-center gap-3">
-                            <Label htmlFor="payment1">Название</Label>
-                            <Input id='payment1' {...{ onChange, value }} />
-                          </div>
-                        }
-                      />
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger>Авто</AccordionTrigger>
-                    <AccordionContent>
-                      <Table className='mb-4'>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="text-left w-full">Имя</TableHead>
-                            <TableHead className="text-center w-150">Сумма</TableHead>
-                            <TableHead className="text-right w-150">Валюта</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {mockAutoPayments.map(({ amount, currency, name }) => (
-                            <TableRow key={`${name} - ${amount}`}>
-                              <TableCell className="text-left font-light">{name}</TableCell>
-                              <TableCell className="font-light w-150">{amount}</TableCell>
-                              <TableCell className="font-light text-right w-150">{currency}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                        <TableFooter>
-                          <TableRow>
-                            <TableCell className="text-left">Сумма</TableCell>
-                            <TableCell>{mockGroceries.reduce((acc, { amount }) => acc + amount, 0)}</TableCell>
-                            <TableCell className="text-right">{'BYN'}</TableCell>
-                          </TableRow>
-                        </TableFooter>
-                      </Table>
-                      {/* <Button variant="outline" size="sm">
-                        <IconPlus /> Создать платёж
-                      </Button> */}
-                      <DialogDemo />
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
+            <div className="flex flex-col gap-6">
+              <Controller
+                control={control}
+                name='startDate'
+                render={({ field: { onChange, value } }) =>
+                  <DatePicker label='Начальная дата' {...{ onChange, value }} />
+                }
+              />
+              <Controller
+                control={control}
+                name='endDate'
+                render={({ field: { onChange, value } }) =>
+                  <DatePicker label='Конечная дата' {...{ onChange, value }} />
+                }
+              />
+              <Label>Категории</Label>
+              <Accordion type="single" collapsible>
+                {renderAccordionContent(categoryPlannedPaymentsFixture)}
+              </Accordion>
+            </div>
           </CardContent>
           <CardFooter className="flex-col gap-2">
             <Button type="submit" className="w-full">

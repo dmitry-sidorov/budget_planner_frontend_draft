@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1,
+    "category": "Продукты",
+    "payments": [
+      {
+        "amount": 100.0,
+        "currency": "BYN",
+        "name": "Грин"
+      },
+      {
+        "amount": 215,
+        "currency": "BYN",
+        "name": "Е-доставка"
+      },
+      {
+        "amount": 124,
+        "currency": "BYN",
+        "name": "Евроопт"
+      },
+      {
+        "amount": 76,
+        "currency": "BYN",
+        "name": "Алми"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Авто",
+    "payments": [
+      {
+        "amount": 80,
+        "currency": "BYN",
+        "name": "Топливо заправка"
+      },
+      {
+        "amount": 15,
+        "currency": "BYN",
+        "name": "Мойка"
+      },
+      {
+        "amount": 50,
+        "currency": "BYN",
+        "name": "Топливо"
+      }
+    ]
+  }
+]
