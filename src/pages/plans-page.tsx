@@ -130,7 +130,7 @@ const mapPaymentAmount = ({ amount }: PlannedPayment) => amount;
 
 const calculatePaymentsTotal = (payments: PlannedPayment[]) => calculateSum(payments.map(mapPaymentAmount))
 
-const PlansPage = () => {
+export const PlansPage = () => {
   const formMethods = useFormContext();
   const { control } = formMethods;
 
@@ -261,5 +261,3 @@ const PlansPage = () => {
     </Card>
   );
 }
-
-export default PlansPage;

@@ -1,0 +1,34 @@
+[
+  {
+    "amount": 100,
+    "category": "Продукты",
+    "currency": "BYN",
+    "description": "Е-доставка",
+    "id": 1,
+    "process_at": 1759667401948
+  },
+  {
+    "amount": 86,
+    "category": "Продукты",
+    "currency": "BYN",
+    "description": "Гиппо",
+    "id": 2,
+    "process_at": 1759667401948
+  },
+  {
+    "amount": 23,
+    "category": "Продукты",
+    "currency": "BYN",
+    "description": "Алми",
+    "id": 3,
+    "process_at": 1759667401948
+  },
+  {
+    "amount": 38,
+    "category": "Продукты",
+    "currency": "BYN",
+    "description": "Соседи",
+    "id": 4,
+    "process_at": 1759667401948
+  }
+]

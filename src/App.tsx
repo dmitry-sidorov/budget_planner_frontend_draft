@@ -1,6 +1,6 @@
 import { useForm, FormProvider } from 'react-hook-form';
 
-import PlansPage from '@/pages/plans-page';
+import { PlansPage, OperationsListPage } from '@/pages';
 
 import './App.css';
 
@@ -11,6 +11,7 @@ const App = () => {
     <form>
       <FormProvider {...formMethods}>
         <PlansPage />
+        <OperationsListPage />
       </FormProvider>
     </form>
   );
