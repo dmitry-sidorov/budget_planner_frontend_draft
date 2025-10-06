@@ -2,7 +2,6 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -16,6 +15,18 @@ export const OperationsListPage = () => {
   const tcellClass = `${theadClass} font-light`;
   const tfooterClass = 'text-left w-150';
 
+  const theadNames = [
+    'id',
+    'Имя',
+    'Категория',
+    'Сумма',
+    'Валюта',
+    'Дата',
+    'Время'
+  ];
+
+  const renderTableCell = (text: string | number) => <TableCell className={tcellClass}>{text}</TableCell>;
+
   return (
     <Card className="w-full">
       <CardHeader>Список операций</CardHeader>
@@ -23,23 +34,21 @@ export const OperationsListPage = () => {
         <Table className='mb-4'>
           <TableHeader>
             <TableRow>
-              <TableHead className={theadClass}>id</TableHead>
-              <TableHead className={theadClass}>Имя</TableHead>
-              <TableHead className={theadClass}>Категория</TableHead>
-              <TableHead className={theadClass}>Сумма</TableHead>
-              <TableHead className={theadClass}>Валюта</TableHead>
-              <TableHead className="text-right">Дата</TableHead>
+              {theadNames.map(theadName =>
+                <TableHead key={theadName} className={theadClass}>{theadName}</TableHead>
+              )}
             </TableRow>
           </TableHeader>
           <TableBody>
             {operationsFixture.map(({ amount, currency, category, description, id, process_at }) => (
               <TableRow key={`${description} - ${amount}`}>
-                <TableCell className={tcellClass}>{id}</TableCell>
-                <TableCell className={tcellClass}>{description}</TableCell>
-                <TableCell className={tcellClass}>{category}</TableCell>
-                <TableCell className={tcellClass}>{amount}</TableCell>
-                <TableCell className={tcellClass}>{currency}</TableCell>
-                <TableCell className="font-light text-right">{process_at}</TableCell>
+                {renderTableCell(id)}
+                {renderTableCell(description)}
+                {renderTableCell(category)}
+                {renderTableCell(amount)}
+                {renderTableCell(currency)}
+                {renderTableCell(new Date(process_at).toLocaleDateString())}
+                {renderTableCell(new Date(process_at).toLocaleTimeString())}
               </TableRow>
             ))}
           </TableBody>
